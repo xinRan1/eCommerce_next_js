@@ -1,6 +1,7 @@
-import { Formik } from 'formik'
+import { Formik, ErrorMessage } from 'formik'
 import Link from 'next/link';
-import  styles  from '../styles/register.module.css'
+import styles from '../styles/register.module.css'
+import * as Yup from 'yup'
 
 
 export default function Register() {
@@ -10,6 +11,21 @@ export default function Register() {
         email: string,
         password: string | number
     }
+
+    const validate = Yup.object({
+        firstName: Yup.string()
+            .max(15, 'Must be last than 15 characters')
+            .required('Require'),
+        lastName: Yup.string()
+            .max(25, 'Must be last than 25 characters')
+            .required('Require'),
+        email: Yup.string()
+            .email('This email is invalid')
+            .required('Require'),
+        password: Yup.string()
+            .min(8, 'Must be at least 8 characters')
+            .required('Require'),
+    })
 
     return (
         <div className={styles.form__wrapper}>
@@ -25,6 +41,7 @@ export default function Register() {
                 }} onSubmit={(values: formValues): void => {
                     console.log(values);
                 }}
+                validationSchema={validate}
             >
                 {props => (
                     <form className={styles.register__form} autoComplete='off' onSubmit={props.handleSubmit}>
@@ -33,11 +50,14 @@ export default function Register() {
                         </label>
                         <input
                             type="text"
-                            onChange={props.handleChange} 
+                            onChange={props.handleChange}
                             onBlur={props.handleBlur}
                             value={props.values.firstName}
                             name="firstName"
                         />
+                        <span className={styles.error_message}>
+                            <ErrorMessage name='firstName' />
+                        </span>
                         <label>
                             Last Name
                         </label>
@@ -48,6 +68,9 @@ export default function Register() {
                             value={props.values.lastName}
                             name="lastName"
                         />
+                        <span className={styles.error_message}>
+                            <ErrorMessage name='lastName' />
+                        </span>
                         <label>
                             Email
                         </label>
@@ -59,6 +82,10 @@ export default function Register() {
                             name="email"
                             autoComplete='off'
                         />
+                        <span className={styles.error_message}>
+                            <ErrorMessage name='email' />
+                        </span>
+
                         <label>
                             Password
                         </label>
@@ -69,6 +96,9 @@ export default function Register() {
                             value={props.values.password}
                             name="password"
                         />
+                        <span className={styles.error_message}>
+                            <ErrorMessage name='password' />
+                        </span>
                         <button type="submit">Register</button>
                         <span>Already have an account? <a href='#'>Login</a></span>
                         <span><Link href='/'>Home Page</Link></span>
