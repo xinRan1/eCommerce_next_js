@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import Link from 'next/link';
+
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import PersonIcon from '@mui/icons-material/Person';
 import AppBar from '@mui/material/AppBar';
@@ -9,11 +11,10 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
+
 
 const pages = ['Home', 'Products', 'Contact'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -150,15 +151,17 @@ export default function Navbar() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            { isLogin ? 
+                            {isLogin ?
                                 settings.map((setting) => (
                                     <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                         <Typography textAlign="center">{setting}</Typography>
                                     </MenuItem>
-                                )) : 
+                                )) :
                                 settingsWithoutLogin.map((setting) => (
                                     <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center">{setting}</Typography>
+                                        <Link href={setting === 'Register' ? '/register' : '/'}>
+                                            <Typography textAlign="center">{setting}</Typography>
+                                        </Link>
                                     </MenuItem>
                                 ))
                             }
