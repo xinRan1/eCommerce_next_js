@@ -100,8 +100,7 @@ export default function Register() {
                             <ErrorMessage name='password' />
                         </span>
                         <button type="submit">Register</button>
-                        <span>Already have an account? <a href='#'>Login</a></span>
-                        <span><Link href='/'>Home Page</Link></span>
+                        <span>Already have an account? <Link href='/login'>Login</Link></span>
                     </form>
                 )}
             </Formik>

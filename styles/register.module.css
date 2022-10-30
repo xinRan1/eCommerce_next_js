@@ -58,3 +58,8 @@
     font-size: medium;
     color: red;
 }
+
+.register__form a {
+    color: blue;
+}
+

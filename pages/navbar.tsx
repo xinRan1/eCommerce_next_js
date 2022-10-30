@@ -93,7 +93,9 @@ export default function Navbar() {
                         >
                             {pages.map((page) => (
                                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                                    <Link href={page === 'Home' ? '/' : '#'}>
+                                        <Typography textAlign="center">{page}</Typography>
+                                    </Link>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -124,7 +126,10 @@ export default function Navbar() {
                                 onClick={handleCloseNavMenu}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                {page}
+                                <Link href={page === 'Home' ? '/' : '#'}>
+                                    {page}
+                                </Link>
+
                             </Button>
                         ))}
                     </Box>
@@ -159,8 +164,8 @@ export default function Navbar() {
                                 )) :
                                 settingsWithoutLogin.map((setting) => (
                                     <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                        <Link href={setting === 'Register' ? '/register' : '/'}>
-                                            <Typography textAlign="center">{setting}</Typography>
+                                        <Link href={setting === 'Register' ? '/register' : '/login'}>
+                                            <Typography className='icons_links' textAlign="center">{setting}</Typography>
                                         </Link>
                                     </MenuItem>
                                 ))
