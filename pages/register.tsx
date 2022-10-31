@@ -1,7 +1,9 @@
 import { Formik, ErrorMessage } from 'formik'
 import Link from 'next/link';
+import {useRouter} from 'next/router';
 import styles from '../styles/register.module.css'
 import * as Yup from 'yup'
+import { useState } from 'react';
 
 
 export default function Register() {
@@ -11,6 +13,9 @@ export default function Register() {
         email: string,
         password: string | number
     }
+
+    const [usersInfos, setUsersInfos] = useState<formValues[]>([])
+    const router = useRouter();
 
     const validate = Yup.object({
         firstName: Yup.string()
@@ -38,9 +43,19 @@ export default function Register() {
                     lastName: '',
                     email: '',
                     password: ''
-                }} onSubmit={(values: formValues): void => {
-                    console.log(values);
+                }} onSubmit={(values: formValues, { resetForm }): void => {
+                    setUsersInfos(prev => [...prev, values])
+                    resetForm({
+                        values: {
+                            firstName: '',
+                            lastName: '',
+                            email: '',
+                            password: ''
+                        }
+                    })
+                    router.replace('/')
                 }}
+
                 validationSchema={validate}
             >
                 {props => (
